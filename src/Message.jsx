@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class Message extends Component {
+export default class Message extends Component {
 
   render() {
     if (this.props.message.type === "incomingMessage") {
@@ -20,4 +20,3 @@ class Message extends Component {
   }
 }
 
-export default Message;

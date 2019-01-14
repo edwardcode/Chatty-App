@@ -23,14 +23,14 @@ class App extends Component {
 
     this.state = {
       currentUser: {name: "Anonymous " },
-      messages: [], // messages coming from the server will be stored here as they arrive
+      messages: [],
       counter:[1]
     }
   }
 
-  //After component mount, handle the msgs came back from ws server to rerender by set state
+
   componentDidMount() {
-    console.log("componentDidMount <App />");
+
     this.socket = new WebSocket("ws://localhost:3001");
 
     this.socket.onopen = (event) => {
@@ -38,6 +38,7 @@ class App extends Component {
     };
 
     this.socket.onmessage = (evt) => {
+      //type:counter, content:1
       console.log(evt.data);
       const oldMessages = this.state.messages;
       const newMessage  = JSON.parse(evt.data);
@@ -45,35 +46,35 @@ class App extends Component {
 
       switch(newMessage.type) {
         case "incomingMessage":
-        // handle incoming message
+
           this.setState({
             messages: newMessages
           })
         break;
 
         case "incomingNotification":
-        // handle incoming notification - if client changed name
+
           this.setState({
             messages: newMessages
           })
         break;
 
         case "counter":
-        //handle counter - if new user connected
+
           this.setState({
             counter: newMessage
           })
         break;
 
         default:
-        // show an error in the console if the message type is unknown
+
         throw new Error("Unknown event type " + newMessage.type);
       }
     }
   }
 
-  //handle send msg to ws server if someone changed username
-  addUsername = username => {
+
+  changeUserName = username => {
     let newUser = {
         type: "postNotification",
         content: `${this.state.currentUser.name} changed name to ${username}`
@@ -87,8 +88,8 @@ class App extends Component {
     }
   }
 
-  //handle send msg to ws server if someone write a new msg in the chatbar
-  addText = content => {
+
+  addNewText = content => {
     let newMessage = {
         type: "postMessage",
         username: this.state.currentUser.name,
@@ -100,14 +101,17 @@ class App extends Component {
     }
   }
 
-  //render the page
+
   render() {
     const howManyUser=`${this.state.counter.content} user${(this.state.counter.content>1)?'s' : ''} online`
     return (
       <main>
-        <Navbar counter={howManyUser}/>
+        <Navbar      counter={howManyUser}/>
         <MessageList messages={this.state.messages} />
-        <ChatBar addUsername={username => this.addUsername(username)} addText={content => this.addText(content)} currentUser={this.state.currentUser.name}/>
+        <ChatBar     changeUserName={username => this.changeUserName(username)}
+                     addNewText={content => this.addNewText(content)}
+                     currentUser={this.state.currentUser.name}
+        />
       </main>
     );
   }

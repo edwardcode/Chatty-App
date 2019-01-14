@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Message            from './Message.jsx';
 
-class MessageList extends Component {
+export default class MessageList extends Component {
 
   render() {
     const messageItem = this.props.messages.map((message, id) => {
@@ -16,4 +16,3 @@ class MessageList extends Component {
   }
 }
 
-export default MessageList;

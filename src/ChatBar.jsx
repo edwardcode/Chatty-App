@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class ChatBar extends Component {
+export default class ChatBar extends Component {
   constructor(props) {
     super(props);
 
@@ -10,8 +10,8 @@ class ChatBar extends Component {
     }
   }
 
-  //check if any changes with the username/input msg box, set state if have any changes
-  handleChange = evt => {
+
+  inputChange = evt => {
     if(evt.target.name === "username"){
       this.setState({name: evt.target.value})
     }
@@ -20,19 +20,19 @@ class ChatBar extends Component {
     }
   }
 
-  handleUsernameKeyPress = evt => {
-    console.log('Username change event detected');
+  userNameInput = evt => {
+
     if(evt.key == 'Enter') {
       evt.preventDefault();
-      this.props.addUsername(this.state.name);
+      this.props.changeUserName(this.state.name);
     }
   }
 
-  handleTextKeyPress = evt => {
-    console.log('Text change event detected');
+  textInput = evt => {
+
     if(evt.key == 'Enter') {
       evt.preventDefault();
-      this.props.addText(this.state.text);
+      this.props.addNewText(this.state.text);
       evt.target.value='';
       this.setState({text: ""})
     }
@@ -41,11 +41,22 @@ class ChatBar extends Component {
   render(){
     return (
       <footer className="chatbar" >
-        <input className="chatbar-username" placeholder="Your Name (Optional)" name="username" defaultValue={this.state.name} onChange={this.handleChange} onKeyPress={this.handleUsernameKeyPress}/>
-        <input className="chatbar-message" placeholder="Type a message and hit ENTER" name="text" onChange={this.handleChange} onKeyPress={this.handleTextKeyPress}/>
+        <input className="chatbar-username"
+               placeholder="Your Name (Optional)"
+               name="username"
+               defaultValue={this.state.name}
+               onChange={this.inputChange}
+               onKeyPress={this.userNameInput}
+        />
+        <input className="chatbar-message"
+               placeholder="Type a message and hit ENTER"
+               name="text"
+               onChange={this.inputChange}
+               onKeyPress={this.textInput}
+        />
       </footer>
     );
   }
 }
 
-export default ChatBar;
+
