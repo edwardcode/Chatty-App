@@ -2,7 +2,10 @@ React Boilerplate
 =====================
 
 A minimal and light dev environment for ReactJS.
-
+![alt text](https://github.com/edwardcode/Chatty-App/blob/master/doc/1user.png)
+![alt text](https://github.com/edwardcode/Chatty-App/blob/master/doc/2users.png)
+![alt text](https://github.com/edwardcode/Chatty-App/blob/master/doc/changeName.png)
+![alt text](https://github.com/edwardcode/Chatty-App/blob/master/doc/chat.png)
 ### Usage
 
 Clone the boilerplate and create your own git repo.
