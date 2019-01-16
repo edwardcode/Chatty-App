@@ -1,7 +1,7 @@
 const express      = require('express');
 const SocketServer = require('ws').Server;
 const PORT         = 3001;
-const uuidv4       = require('uuid/v4');
+const uuidv4       = require('uuidv4');
 
 const server       = express()
    // Make the express server serve static assets (html, javascript, css) from the /public folder
